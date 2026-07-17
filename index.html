@@ -1,0 +1,163 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>EcoCampus - Compromiso Verde</title>
+    <!-- Tailwind CSS para un diseño rápido y moderno -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;600;700&display=swap" rel="stylesheet">
+    <style>
+        body {
+            font-family: 'Poppins', sans-serif;
+        }
+    </style>
+</head>
+<body class="bg-green-50 text-gray-800">
+
+    <!-- Navegación -->
+    <nav class="bg-white shadow-md sticky top-0 z-50">
+        <div class="max-w-6xl mx-auto px-4 py-4 flex justify-between items-center">
+            <span class="text-2xl font-bold text-green-600 flex items-center gap-2">
+                🌱 EcoCampus
+            </span>
+            <div class="space-x-6 hidden md:block">
+                <a href="#mision" class="hover:text-green-600 font-medium transition">Misión</a>
+                <a href="#desafios" class="hover:text-green-600 font-medium transition">Eco-Desafíos</a>
+                <a href="#reportar" class="hover:text-green-600 font-medium transition">Reportar Alerta</a>
+                <a href="#lideres" class="bg-green-600 text-white px-4 py-2 rounded-full hover:bg-green-700 transition">Unirse</a>
+            </div>
+        </div>
+    </nav>
+
+    <!-- Hero Section / Bienvenida -->
+    <header class="bg-gradient-to-r from-green-500 to-emerald-600 text-white py-20 px-4 text-center">
+        <div class="max-w-4xl mx-auto">
+            <h1 class="text-4xl md:text-6xl font-bold mb-6">El campus es tu casa. ¡No lo ensucies, vívelo!</h1>
+            <p class="text-lg md:text-xl mb-8 opacity-90">Conéctate con las áreas verdes de tu institución, participa en retos, acumula puntos y mantén nuestro espacio libre de contaminación.</p>
+            <div class="flex flex-wrap justify-center gap-4">
+                <a href="#desafios" class="bg-white text-green-700 font-bold px-8 py-3 rounded-full shadow-lg hover:bg-green-100 transition">Ver Retos de Hoy</a>
+                <a href="#reportar" class="bg-transparent border-2 border-white text-white font-bold px-8 py-3 rounded-full hover:bg-white hover:text-green-700 transition">Reportar Basura</a>
+            </div>
+        </div>
+    </header>
+
+    <!-- Sección de Misión / Impacto -->
+    <section id="mision" class="py-16 px-4 max-w-6xl mx-auto">
+        <h2 class="text-3xl font-bold text-center text-gray-800 mb-12">¿Por qué importa tu compromiso?</h2>
+        <div class="grid md:grid-cols-3 gap-8">
+            <div class="bg-white p-6 rounded-2xl shadow-sm border border-green-100 text-center">
+                <div class="text-4xl mb-4">🍃</div>
+                <h3 class="text-xl font-bold mb-2">Aire Limpio</h3>
+                <p class="text-gray-600">Las plantas de nuestro campus absorben el CO2 y reducen la temperatura ambiente de las aulas.</p>
+            </div>
+            <div class="bg-white p-6 rounded-2xl shadow-sm border border-green-100 text-center">
+                <div class="text-4xl mb-4">🗑️</div>
+                <h3 class="text-xl font-bold mb-2">Cero Plásticos</h3>
+                <p class="text-gray-600">Evitamos que los residuos plásticos dañen el suelo, el césped y terminen en las alcantarillas.</p>
+            </div>
+            <div class="bg-white p-6 rounded-2xl shadow-sm border border-green-100 text-center">
+                <div class="text-4xl mb-4">👥</div>
+                <h3 class="text-xl font-bold mb-2">Comunidad Activa</h3>
+                <p class="text-gray-600">Un campus limpio mejora la salud mental, fomenta la convivencia y el orgullo estudiantil.</p>
+            </div>
+        </div>
+    </section>
+
+    <!-- Sección Interactiva: Eco-Desafíos (Gamificación) -->
+    <section id="desafios" class="bg-green-100 py-16 px-4">
+        <div class="max-w-6xl mx-auto">
+            <h2 class="text-3xl font-bold text-center text-gray-800 mb-4">Eco-Desafíos Semanales</h2>
+            <p class="text-center text-gray-600 mb-12">Completa misiones, sube una foto y gana puntos para canjear en la cafetería o por artículos universitarios.</p>
+            
+            <div class="grid md:grid-cols-2 lg:grid-cols-3 gap-8">
+                <!-- Tarjeta de Reto 1 -->
+                <div class="bg-white rounded-2xl overflow-hidden shadow-md">
+                    <div class="bg-green-600 text-white text-xs font-bold px-3 py-1 absolute mt-4 ml-4 rounded-full">FÁCIL</div>
+                    <div class="h-48 bg-cover bg-center" style="background-image: url('https://images.unsplash.com/photo-1532996122724-e3c354a0b15b?auto=format&fit=crop&w=500&q=80')"></div>
+                    <div class="p-6">
+                        <h3 class="text-lg font-bold mb-2">Guardián de la Sombra</h3>
+                        <p class="text-gray-600 text-sm mb-4">Recoge 5 botellas de plástico que encuentres tiradas cerca de las áreas de descanso.</p>
+                        <div class="flex justify-between items-center">
+                            <span class="text-green-600 font-bold">+50 Puntos</span>
+                            <button class="bg-green-600 hover:bg-green-700 text-white text-sm px-4 py-2 rounded-lg font-medium">Participar</button>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Tarjeta de Reto 2 -->
+                <div class="bg-white rounded-2xl overflow-hidden shadow-md">
+                    <div class="bg-yellow-500 text-white text-xs font-bold px-3 py-1 absolute mt-4 ml-4 rounded-full">MEDIO</div>
+                    <div class="h-48 bg-cover bg-center" style="background-image: url('https://images.unsplash.com/photo-1542601906990-b4d3fb778b09?auto=format&fit=crop&w=500&q=80')"></div>
+                    <div class="p-6">
+                        <h3 class="text-lg font-bold mb-2">Adopta una Maceta</h3>
+                        <p class="text-gray-600 text-sm mb-4">Riega y limpia las hojas de las plantas de tu facultad durante 3 días seguidos.</p>
+                        <div class="flex justify-between items-center">
+                            <span class="text-green-600 font-bold">+150 Puntos</span>
+                            <button class="bg-green-600 hover:bg-green-700 text-white text-sm px-4 py-2 rounded-lg font-medium">Participar</button>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Tarjeta de Reto 3 -->
+                <div class="bg-white rounded-2xl overflow-hidden shadow-md">
+                    <div class="bg-red-500 text-white text-xs font-bold px-3 py-1 absolute mt-4 ml-4 rounded-full">AVANZADO</div>
+                    <div class="h-48 bg-cover bg-center" style="background-image: url('https://images.unsplash.com/photo-1466692476868-aef1dfb1e735?auto=format&fit=crop&w=500&q=80')"></div>
+                    <div class="p-6">
+                        <h3 class="text-lg font-bold mb-2">Embajador de Reciclaje</h3>
+                        <p class="text-gray-600 text-sm mb-4">Da una charla rápida de 5 minutos sobre separación de residuos a tu grupo de clase.</p>
+                        <div class="flex justify-between items-center">
+                            <span class="text-green-600 font-bold">+300 Puntos</span>
+                            <button class="bg-green-600 hover:bg-green-700 text-white text-sm px-4 py-2 rounded-lg font-medium">Participar</button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Formulario de Alertas de Limpieza -->
+    <section id="reportar" class="py-16 px-4 max-w-2xl mx-auto">
+        <div class="bg-white rounded-3xl p-8 shadow-xl border border-green-100">
+            <h2 class="text-3xl font-bold text-gray-800 mb-2 text-center">Reporte Ciudadano / Alerta Limpia</h2>
+            <p class="text-gray-600 text-center mb-8">¿Viste basura acumulada en un área verde o un bote desbordado? Reportalo aquí para que las brigadas actúen de inmediato.</p>
+            
+            <form class="space-y-6" onsubmit="event.preventDefault(); alert('¡Gracias por tu reporte! Nuestro equipo de limpieza o las brigadas estudiantiles acudirán pronto.');">
+                <div>
+                    <label class="block text-sm font-semibold text-gray-700 mb-2">Ubicación exacta en el Campus</label>
+                    <input type="text" placeholder="Ej. Jardines detrás de la biblioteca central" class="w-full px-4 py-3 rounded-xl border border-gray-300 focus:outline-none focus:ring-2 focus:ring-green-500" required>
+                </div>
+                <div>
+                    <label class="block text-sm font-semibold text-gray-700 mb-2">¿Qué tipo de desecho encontraste?</label>
+                    <select class="w-full px-4 py-3 rounded-xl border border-gray-300 focus:outline-none focus:ring-2 focus:ring-green-500">
+                        <option>Plásticos / Envolturas</option>
+                        <option>Desechos de comida</option>
+                        <option>Bote de basura desbordado</option>
+                        <option>Otros</option>
+                    </select>
+                </div>
+                <div>
+                    <label class="block text-sm font-semibold text-gray-700 mb-2">Sube una foto de evidencia (Opcional)</label>
+                    <div class="border-2 border-dashed border-green-300 rounded-xl p-4 text-center cursor-pointer hover:bg-green-50 transition">
+                        <span class="text-gray-500">📸 Haz clic para subir o arrastra la foto aquí</span>
+                        <input type="file" class="hidden">
+                    </div>
+                </div>
+                <button type="submit" class="w-full bg-green-600 hover:bg-green-700 text-white font-bold py-3 px-6 rounded-xl transition shadow-md">Enviar Alerta de Limpieza</button>
+            </form>
+        </div>
+    </section>
+
+    <!-- Footer / Pie de página -->
+    <footer class="bg-gray-900 text-gray-400 py-12 px-4 text-center">
+        <div class="max-w-6xl mx-auto space-y-4">
+            <p class="text-white font-bold text-lg">🌱 Juntos por un Campus Sostenible</p>
+            <p class="text-sm">Iniciativa estudiantil para el cuidado de áreas verdes y reducción de residuos contaminantes.</p>
+            <div class="pt-4 border-t border-gray-800 text-xs">
+                © 2026 EcoCampus Universitario. Todos los derechos reservados.
+            </div>
+        </div>
+    </footer>
+
+</body>
+</html>
