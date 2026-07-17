@@ -1,0 +1,338 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Generador de Chistes - EcoCampus</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;600;700&display=swap" rel="stylesheet">
+    <style>
+        body {
+            font-family: 'Poppins', sans-serif;
+        }
+        .joke-card {
+            min-height: 250px;
+            animation: fadeIn 0.5s ease-in;
+        }
+        @keyframes fadeIn {
+            from {
+                opacity: 0;
+                transform: translateY(10px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+        .loading {
+            animation: spin 1s linear infinite;
+        }
+        @keyframes spin {
+            from {
+                transform: rotate(0deg);
+            }
+            to {
+                transform: rotate(360deg);
+            }
+        }
+    </style>
+</head>
+<body class="bg-gradient-to-br from-green-50 via-blue-50 to-emerald-50 text-gray-800 min-h-screen">
+
+    <!-- Navigation -->
+    <nav class="bg-white shadow-md sticky top-0 z-50">
+        <div class="max-w-6xl mx-auto px-4 py-4 flex justify-between items-center">
+            <a href="index.html" class="text-2xl font-bold text-green-600 flex items-center gap-2 hover:text-green-700 transition">
+                🌱 EcoCampus
+            </a>
+            <div class="space-x-6 hidden md:block">
+                <a href="index.html" class="hover:text-green-600 font-medium transition">Inicio</a>
+                <a href="index.html#desafios" class="hover:text-green-600 font-medium transition">Desafíos</a>
+                <a href="joke-generator.html" class="text-green-600 font-bold">😂 Chistes</a>
+            </div>
+        </div>
+    </nav>
+
+    <!-- Hero Section -->
+    <header class="bg-gradient-to-r from-purple-500 to-pink-500 text-white py-12 px-4 text-center">
+        <div class="max-w-4xl mx-auto">
+            <h1 class="text-4xl md:text-5xl font-bold mb-4">😂 Generador de Chistes</h1>
+            <p class="text-lg opacity-90">¡Tómate un descanso y ríete un poco! Genera chistes aleatorios con un solo clic.</p>
+        </div>
+    </header>
+
+    <!-- Main Content -->
+    <main class="max-w-2xl mx-auto px-4 py-12">
+        
+        <!-- Category Selection -->
+        <div class="mb-8">
+            <h2 class="text-2xl font-bold text-gray-800 mb-6 text-center">Elige una categoría</h2>
+            <div class="grid grid-cols-2 md:grid-cols-4 gap-4">
+                <button onclick="getJokeByCategory('general')" class="category-btn bg-blue-500 hover:bg-blue-600 text-white font-semibold py-3 px-4 rounded-lg transition transform hover:scale-105">
+                    😄 General
+                </button>
+                <button onclick="getJokeByCategory('programming')" class="category-btn bg-green-500 hover:bg-green-600 text-white font-semibold py-3 px-4 rounded-lg transition transform hover:scale-105">
+                    💻 Programación
+                </button>
+                <button onclick="getJokeByCategory('knock-knock')" class="category-btn bg-purple-500 hover:bg-purple-600 text-white font-semibold py-3 px-4 rounded-lg transition transform hover:scale-105">
+                    🚪 Toc Toc
+                </button>
+                <button onclick="randomJoke()" class="category-btn bg-pink-500 hover:bg-pink-600 text-white font-semibold py-3 px-4 rounded-lg transition transform hover:scale-105">
+                    🎲 Sorpresa
+                </button>
+            </div>
+        </div>
+
+        <!-- Joke Display Card -->
+        <div class="bg-white rounded-3xl shadow-2xl p-8 joke-card border-4 border-green-200">
+            <div id="joke-container" class="text-center">
+                <p class="text-gray-500 text-lg mb-8">Haz clic en una categoría o presiona el botón de abajo para generar un chiste</p>
+                <div class="text-6xl mb-4">😊</div>
+            </div>
+        </div>
+
+        <!-- Get Joke Button -->
+        <div class="mt-8 flex flex-col gap-4">
+            <button onclick="randomJoke()" class="bg-gradient-to-r from-purple-600 to-pink-600 hover:from-purple-700 hover:to-pink-700 text-white font-bold py-4 px-8 rounded-xl text-lg transition transform hover:scale-105 shadow-lg flex items-center justify-center gap-2">
+                <span id="btn-icon">😂</span>
+                <span id="btn-text">Generar Chiste Aleatorio</span>
+            </button>
+            <button onclick="copyJoke()" class="bg-gray-600 hover:bg-gray-700 text-white font-semibold py-3 px-6 rounded-lg transition" id="copy-btn" style="display: none;">
+                📋 Copiar Chiste
+            </button>
+        </div>
+
+        <!-- Joke Stats -->
+        <div class="mt-12 grid md:grid-cols-3 gap-6">
+            <div class="bg-blue-100 rounded-lg p-4 text-center">
+                <div class="text-3xl font-bold text-blue-600" id="joke-count">0</div>
+                <p class="text-gray-700 font-semibold">Chistes Generados</p>
+            </div>
+            <div class="bg-green-100 rounded-lg p-4 text-center">
+                <div class="text-3xl font-bold text-green-600" id="favorite-count">0</div>
+                <p class="text-gray-700 font-semibold">Favoritos Guardados</p>
+            </div>
+            <div class="bg-purple-100 rounded-lg p-4 text-center">
+                <div class="text-3xl font-bold text-purple-600" id="category-label">General</div>
+                <p class="text-gray-700 font-semibold">Última Categoría</p>
+            </div>
+        </div>
+
+        <!-- Favorites Section -->
+        <div class="mt-12">
+            <h2 class="text-2xl font-bold text-gray-800 mb-6 flex items-center gap-2">
+                <span>⭐</span> Mis Chistes Favoritos
+            </h2>
+            <div id="favorites-container" class="grid md:grid-cols-2 gap-4">
+                <p class="text-gray-500 col-span-2 text-center">No hay favoritos guardados aún. ¡Haz clic en el corazón para agregar!</p>
+            </div>
+        </div>
+
+        <!-- Add to Favorites Button -->
+        <button onclick="addToFavorites()" class="mt-8 w-full bg-red-500 hover:bg-red-600 text-white font-bold py-3 px-6 rounded-lg transition" id="favorite-btn" style="display: none;">
+            ❤️ Agregar a Favoritos
+        </button>
+
+    </main>
+
+    <!-- Footer -->
+    <footer class="bg-gray-900 text-gray-400 py-8 px-4 text-center mt-16">
+        <div class="max-w-6xl mx-auto space-y-2">
+            <p class="text-white font-bold">🌱 EcoCampus - Generador de Chistes</p>
+            <p class="text-sm">Chistes traídos desde JokeAPI - ¡Haz que alguien se ría hoy!</p>
+            <div class="pt-4 border-t border-gray-800 text-xs">
+                © 2026 EcoCampus Universitario. Todos los derechos reservados.
+            </div>
+        </div>
+    </footer>
+
+    <script>
+        let currentJoke = null;
+        let jokeCount = 0;
+        let favorites = [];
+        const API_URL = 'https://official-joke-api.appspot.com';
+
+        // Cargar favoritos desde localStorage
+        window.addEventListener('DOMContentLoaded', () => {
+            const saved = localStorage.getItem('favoriteJokes');
+            if (saved) {
+                favorites = JSON.parse(saved);
+                updateFavoriteCount();
+                renderFavorites();
+            }
+        });
+
+        // Obtener chiste aleatorio
+        async function randomJoke() {
+            await fetchJoke(`${API_URL}/random_joke`);
+        }
+
+        // Obtener chiste por categoría
+        async function getJokeByCategory(category) {
+            const categoryMap = {
+                'general': 'general',
+                'programming': 'programming',
+                'knock-knock': 'knock-knock'
+            };
+            
+            const mappedCategory = categoryMap[category] || 'general';
+            document.getElementById('category-label').textContent = 
+                category === 'knock-knock' ? 'Toc Toc' :
+                category === 'programming' ? 'Programación' : 'General';
+            
+            await fetchJoke(`${API_URL}/jokes/${mappedCategory}/random`);
+        }
+
+        // Fetch Joke from API
+        async function fetchJoke(url) {
+            const container = document.getElementById('joke-container');
+            const btnIcon = document.getElementById('btn-icon');
+            const btnText = document.getElementById('btn-text');
+            
+            // Show loading state
+            btnIcon.classList.add('loading');
+            btnText.textContent = 'Cargando...';
+            container.innerHTML = '<div class="text-4xl loading">⏳</div><p class="text-gray-500 mt-4">Buscando un chiste divertido...</p>';
+            
+            try {
+                const response = await fetch(url);
+                if (!response.ok) throw new Error('Error en la API');
+                
+                const data = await response.json();
+                currentJoke = data;
+                jokeCount++;
+                
+                // Update UI
+                displayJoke(data);
+                document.getElementById('joke-count').textContent = jokeCount;
+                document.getElementById('favorite-btn').style.display = 'block';
+                document.getElementById('copy-btn').style.display = 'block';
+                
+            } catch (error) {
+                container.innerHTML = `
+                    <div class="text-6xl mb-4">😟</div>
+                    <p class="text-red-600 font-semibold text-lg">¡Oops! No pudimos obtener un chiste.</p>
+                    <p class="text-gray-500 mt-2">Intenta de nuevo más tarde.</p>
+                `;
+                console.error('Error fetching joke:', error);
+            } finally {
+                btnIcon.classList.remove('loading');
+                btnText.textContent = 'Generar Chiste Aleatorio';
+            }
+        }
+
+        // Display Joke
+        function displayJoke(joke) {
+            const container = document.getElementById('joke-container');
+            
+            if (joke.type === 'knock-knock') {
+                container.innerHTML = `
+                    <div class="text-center">
+                        <p class="text-5xl mb-6">🚪</p>
+                        <p class="text-xl font-semibold text-gray-700 mb-4">
+                            <strong>Yo:</strong> Toc, toc
+                        </p>
+                        <p class="text-lg text-gray-600 mb-6">
+                            <strong>Tú:</strong> ¿Quién es?
+                        </p>
+                        <p class="text-xl font-semibold text-blue-600 mb-4">
+                            ${joke.setup}
+                        </p>
+                        <button onclick="revealPunchline()" class="bg-green-500 hover:bg-green-600 text-white font-bold py-2 px-6 rounded-lg transition">
+                            Ver Respuesta 😂
+                        </button>
+                        <p id="punchline" class="text-2xl font-bold text-purple-600 mt-6" style="display: none;">
+                            ${joke.punchline}
+                        </p>
+                    </div>
+                `;
+            } else {
+                container.innerHTML = `
+                    <div class="text-center">
+                        <p class="text-5xl mb-6">😄</p>
+                        <p class="text-xl font-semibold text-gray-700 mb-6">
+                            ${joke.setup}
+                        </p>
+                        <button onclick="revealPunchline()" class="bg-green-500 hover:bg-green-600 text-white font-bold py-2 px-6 rounded-lg transition">
+                            Ver Respuesta 😂
+                        </button>
+                        <p id="punchline" class="text-2xl font-bold text-purple-600 mt-6" style="display: none;">
+                            ${joke.punchline}
+                        </p>
+                    </div>
+                `;
+            }
+        }
+
+        // Reveal Punchline
+        function revealPunchline() {
+            const punchline = document.getElementById('punchline');
+            punchline.style.display = 'block';
+        }
+
+        // Copy Joke to Clipboard
+        function copyJoke() {
+            if (!currentJoke) return;
+            
+            const text = `${currentJoke.setup}\n${currentJoke.punchline}`;
+            navigator.clipboard.writeText(text).then(() => {
+                alert('✅ ¡Chiste copiado al portapapeles!');
+            });
+        }
+
+        // Add to Favorites
+        function addToFavorites() {
+            if (!currentJoke) return;
+            
+            const exists = favorites.some(fav => 
+                fav.setup === currentJoke.setup && fav.punchline === currentJoke.punchline
+            );
+            
+            if (!exists) {
+                favorites.push(currentJoke);
+                localStorage.setItem('favoriteJokes', JSON.stringify(favorites));
+                updateFavoriteCount();
+                renderFavorites();
+                alert('❤️ ¡Chiste agregado a favoritos!');
+            } else {
+                alert('⚠️ Este chiste ya está en favoritos.');
+            }
+        }
+
+        // Update Favorite Count
+        function updateFavoriteCount() {
+            document.getElementById('favorite-count').textContent = favorites.length;
+        }
+
+        // Render Favorites
+        function renderFavorites() {
+            const container = document.getElementById('favorites-container');
+            
+            if (favorites.length === 0) {
+                container.innerHTML = '<p class="text-gray-500 col-span-2 text-center">No hay favoritos guardados aún. ¡Haz clic en el corazón para agregar!</p>';
+                return;
+            }
+            
+            container.innerHTML = favorites.map((fav, index) => `
+                <div class="bg-gradient-to-br from-yellow-50 to-yellow-100 rounded-lg p-4 border-2 border-yellow-300">
+                    <div class="flex justify-between items-start mb-2">
+                        <span class="text-lg font-bold text-yellow-600">#{index + 1}</span>
+                        <button onclick="removeFavorite(${index})" class="text-red-500 hover:text-red-700 font-bold">❌</button>
+                    </div>
+                    <p class="text-sm font-semibold text-gray-700 mb-2">${fav.setup}</p>
+                    <p class="text-sm text-purple-600"><strong>Respuesta:</strong> ${fav.punchline}</p>
+                </div>
+            `).join('');
+        }
+
+        // Remove from Favorites
+        function removeFavorite(index) {
+            favorites.splice(index, 1);
+            localStorage.setItem('favoriteJokes', JSON.stringify(favorites));
+            updateFavoriteCount();
+            renderFavorites();
+        }
+    </script>
+
+</body>
+</html>
